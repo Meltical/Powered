@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 public class PrototypeHeroDemo : MonoBehaviour {
 
     [Header("Variables")]
@@ -22,6 +22,27 @@ public class PrototypeHeroDemo : MonoBehaviour {
     private int                 m_facingDirection = 1;
     private float               m_disableMovementTimer = 0.0f;
 
+    public Collider2D DeathZone;
+    public Text PowerUps;
+    private bool canJump = true;
+    private bool hasDoubleJump = false;
+    private Vector3 startPosition = new Vector3(-100f, -20f, 0f);
+
+    private void OnTriggerEnter2D(Collider2D collider){
+        if(collider == this.DeathZone){
+            m_body2d.transform.position = startPosition;
+        }else{
+            if(collider.gameObject.name == "Double Jump"){
+                openChest(collider.gameObject.GetComponent<Animator>());
+                PowerUps.text += "Double Jump\n";
+                hasDoubleJump = true;
+            }
+        }
+    }
+
+    private void openChest(Animator animator){
+        animator.enabled = true;
+    }
     // Use this for initialization
     void Start ()
     {
@@ -43,6 +64,7 @@ public class PrototypeHeroDemo : MonoBehaviour {
         {
             m_grounded = true;
             m_animator.SetBool("Grounded", m_grounded);
+            canJump = true;
         }
 
         //Check if character just started falling
@@ -50,6 +72,7 @@ public class PrototypeHeroDemo : MonoBehaviour {
         {
             m_grounded = false;
             m_animator.SetBool("Grounded", m_grounded);
+            canJump = true;
         }
 
         // -- Handle input and movement --
@@ -94,15 +117,22 @@ public class PrototypeHeroDemo : MonoBehaviour {
 
         // -- Handle Animations --
         //Jump
-        if (Input.GetButtonDown("Jump") && m_grounded && m_disableMovementTimer < 0.0f)
+        if (Input.GetButtonDown("Jump") && m_disableMovementTimer < 0.0f)
         {
-            m_animator.SetTrigger("Jump");
-            m_grounded = false;
-            m_animator.SetBool("Grounded", m_grounded);
-            m_body2d.velocity = new Vector2(m_body2d.velocity.x, m_jumpForce);
-            m_groundSensor.Disable(0.2f);
+            if(m_grounded){
+                m_animator.SetTrigger("Jump");
+                m_grounded = false;
+                m_animator.SetBool("Grounded", m_grounded);
+                m_body2d.velocity = new Vector2(m_body2d.velocity.x, m_jumpForce);
+                m_groundSensor.Disable(0.2f);
+                canJump = true;
+            } else if(canJump && hasDoubleJump){
+                m_animator.SetTrigger("Jump");
+                m_body2d.velocity = new Vector2(m_body2d.velocity.x, m_jumpForce);
+                canJump = false;
+            }
         }
-
+        
         //Run
         else if(m_moving)
             m_animator.SetInteger("AnimState", 1);
@@ -125,6 +155,7 @@ public class PrototypeHeroDemo : MonoBehaviour {
             GameObject newDust = Instantiate(dust, dustSpawnPosition, Quaternion.identity) as GameObject;
             // Turn dust in correct X direction
             newDust.transform.localScale = newDust.transform.localScale.x * new Vector3(m_facingDirection, 1, 1);
+            newDust.GetComponent<SpriteRenderer>().sortingLayerName = "tiles";
         }
     }
 
