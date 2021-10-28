@@ -40,25 +40,25 @@ public class PrototypeHeroDemo : MonoBehaviour
             if (collider.gameObject.name == "Double Jump")
             {
                 openChest(collider.gameObject.GetComponent<Animator>());
-                PowerUps.text += "Double Jump\n";
+                PowerUps.text = "Double Jump\n";
                 hasDoubleJump = true;
             }
             if (collider.gameObject.name == "Run Faster")
             {
                 openChest(collider.gameObject.GetComponent<Animator>());
-                PowerUps.text += "Run Faster\n";
-                m_maxSpeed = 6.0f;
+                PowerUps.text = "Run Faster\n";
+                m_maxSpeed = 7.0f;
             }
             if (collider.gameObject.name == "Jump Higher")
             {
                 openChest(collider.gameObject.GetComponent<Animator>());
-                PowerUps.text += "Jump Higher\n";
+                PowerUps.text = "Jump Higher\n";
                 m_jumpForce = 11.0f;
             }
             if (collider.gameObject.name == "Get A Sword")
             {
                 openChest(collider.gameObject.GetComponent<Animator>());
-                PowerUps.text += "Get A Sword\n";
+                PowerUps.text = "Get A Sword\n";
                 m_hideSword = false;
             }
         }
@@ -168,6 +168,11 @@ public class PrototypeHeroDemo : MonoBehaviour
         //Idle
         else
             m_animator.SetInteger("AnimState", 0);
+
+        if (Input.GetButtonDown("Attack"))
+        {
+            Debug.Log("Attack");
+        }
     }
 
     // Function used to spawn a dust effect
