@@ -40,25 +40,33 @@ public class PrototypeHeroDemo : MonoBehaviour
             if (collider.gameObject.name == "Double Jump")
             {
                 openChest(collider.gameObject.GetComponent<Animator>());
-                PowerUps.text += "Double Jump\n";
+                Destroy(collider);
+                if (!PowerUps.text.Contains("Double Jump"))
+                    PowerUps.text += "Double Jump\n";
                 hasDoubleJump = true;
             }
             if (collider.gameObject.name == "Run Faster")
             {
                 openChest(collider.gameObject.GetComponent<Animator>());
-                PowerUps.text += "Run Faster\n";
+                Destroy(collider);
+                if (!PowerUps.text.Contains("Run Faster"))
+                    PowerUps.text += "Run Faster\n";
                 m_maxSpeed = 6.0f;
             }
             if (collider.gameObject.name == "Jump Higher")
             {
                 openChest(collider.gameObject.GetComponent<Animator>());
-                PowerUps.text += "Jump Higher\n";
+                Destroy(collider);
+                if (!PowerUps.text.Contains("Jump Higher"))
+                    PowerUps.text += "Jump Higher\n";
                 m_jumpForce = 11.0f;
             }
             if (collider.gameObject.name == "Get A Sword")
             {
                 openChest(collider.gameObject.GetComponent<Animator>());
-                PowerUps.text += "Get A Sword\n";
+                Destroy(collider);
+                if (!PowerUps.text.Contains("Get A Sword"))
+                    PowerUps.text += "Get A Sword\n";
                 m_hideSword = false;
             }
         }
