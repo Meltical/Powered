@@ -51,7 +51,7 @@ public class PrototypeHeroDemo : MonoBehaviour
                 Destroy(collider);
                 if (!PowerUps.text.Contains("Run Faster"))
                     PowerUps.text += "Run Faster\n";
-                m_maxSpeed = 6.0f;
+                m_maxSpeed = 7.0f;
             }
             if (collider.gameObject.name == "Jump Higher")
             {
@@ -176,6 +176,11 @@ public class PrototypeHeroDemo : MonoBehaviour
         //Idle
         else
             m_animator.SetInteger("AnimState", 0);
+
+        if (Input.GetButtonDown("Attack"))
+        {
+            Debug.Log("Attack");
+        }
     }
 
     // Function used to spawn a dust effect
