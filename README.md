@@ -1,6 +1,6 @@
 # Powered
 
-Jeu de platformes en 2D réalisé dans le cadre de l'UV 3DETECH
+Jeu de plateformes en 2D réalisé dans le cadre de l'UV 3DETECH
 
 # Video de présentation
 
@@ -8,7 +8,7 @@ Jeu de platformes en 2D réalisé dans le cadre de l'UV 3DETECH
 
 # Description
 
-- Jeu de platforme en 2D
+- Jeu de plateformes en 2D
 
 - Pouvoirs (Double Jump, Jump Higher ...)
 
@@ -16,7 +16,7 @@ Jeu de platformes en 2D réalisé dans le cadre de l'UV 3DETECH
 
 # Installation
 
-Clonner puis ouvrir le projet Unity sous la version `2021.2.01f`
+Cloner puis ouvrir le projet Unity sous la version `2021.2.01f`
 
 # Pistes d'amélioration
 
